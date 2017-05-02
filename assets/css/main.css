@@ -1,0 +1,27 @@
+.addimage{
+    width:100%; 
+    text-align: center; 
+    color:green!important;
+    cursor:pointer;
+}
+
+.removeimage{
+    width:100%; 
+    text-align:center;
+    color:red!important;
+    cursor:pointer;
+}
+
+.slideshow_image_wrapper{
+    margin-top: 30px; 
+}
+
+.slideshow_image_wrapper .col-md-6{
+    margin-top:5px;
+}
+
+.slideshow_image_wrapper textarea{
+    resize:none; 
+    width:100%; 
+    height:50%;
+}
