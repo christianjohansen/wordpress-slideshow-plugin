@@ -26,7 +26,7 @@
     height:50%;
 }
 
-#slides{
+.slideshow{
     display: none;
 }
 
@@ -36,7 +36,8 @@
 
 .slide h1{
     text-align: center;
-    padding-top:0px;
+    padding-top:0px!important;
+    margin-top: 0px!important;
     font-size: 18px;
 }
 

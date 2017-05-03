@@ -1,6 +1,6 @@
 <?php 
 
-class SlideshowSettings{
+class Slideshow_Settings{
 
     public function __construct(){
         if (!defined('ABSPATH')){

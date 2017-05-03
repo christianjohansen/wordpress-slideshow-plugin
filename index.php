@@ -15,10 +15,10 @@ class Index
         add_action('wp_enqueue_scripts', [$this, 'styles']);
         
         require_once 'slideshow-shortcode.php';
-        new SlideshowShortcode();
+        new Slideshow_Shortcode();
 
         require_once 'slideshow-settings.php';
-        new SlideshowSettings();
+        new Slideshow_Settings();
 
         require_once 'slideshow.php';
         new Slideshow();

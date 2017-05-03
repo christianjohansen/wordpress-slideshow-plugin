@@ -17,58 +17,10 @@ class Slideshow_Widget extends WP_Widget
     public function widget($args, $instance)
     {
         $post_id = $instance['slideshow'];
-        //print_r(get_post_custom($post_id));
-
-        $slideshow = new Slideshow;
-        $slideshow_images = $slideshow->list_of_slides(Slideshow::SLIDESHOW_IMAGE_META);
-        $slideshow_texts = $slideshow->list_of_slides(Slideshow::SLIDESHOW_TEXT_META);
         
-        $slideshow_height = get_post_meta($post_id, 'slideshow_settings_height', true);
-        $slideshow_width = get_post_meta($post_id, 'slideshow_settings_width', true);
-
-        ?>
-
-        <div class="container">
-            <div id="slides">
-                <?php foreach($slideshow_images as $key => $image) { ?>
-                    <?php
-                        $image_id = get_post_meta($post_id, $image, true);
-                        $text_id = get_post_meta($post_id, $slideshow_texts[$key], true);
-                        $image_url = wp_get_attachment_image_src( $image_id, 'full' )[0];
-                        
-                         if ($image_url == '') {
-                            continue;
-                        }
-
-                       ?>
-                   
-                    <div class="slide">
-                        <img src="<?php echo $image_url;?>">
-                        <h1><?php echo $text_id;?></h1>
-                    </div> 
-
-                <?php }?>
-            </div>
-        </div>
-       <script>
-            $(function() {
-            $('#slides').slidesjs({
-                width: <?php echo $slideshow_width ?>,
-                height: <?php echo $slideshow_height?>,
-                play: {
-                    auto: true,
-                    interval: 5000,
-                    swap: true,
-                    pauseOnHover: false
-                },
-                pagination: {
-                    active: false,
-                },
-                navigation: false,
-            });
-            });
-        </script>
-        <?php 
+        require_once 'slideshow-template.php';
+        $slideshow_template = new Slideshow_Template;
+        $slideshow_template->get_slideshow_template($post_id);
     }
     
     public function form($instance)
