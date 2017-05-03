@@ -20,6 +20,12 @@ class Index
 
         require_once 'slideshow.php';
         new Slideshow();
+
+        require_once 'slideshow-widget.php';
+        add_action('widgets_init', function()
+        {
+            register_widget('Slideshow_Widget');
+        });
     }
 
     public function styles(){
