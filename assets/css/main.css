@@ -29,3 +29,18 @@
 #slides{
     display: none;
 }
+
+.slide img{
+    width: 100%;
+}
+
+.slide h1{
+    text-align: center;
+    padding-top:0px;
+    font-size: 18px;
+}
+
+.container{
+    margin-top:20px;
+    margin-bottom: 20px;
+}

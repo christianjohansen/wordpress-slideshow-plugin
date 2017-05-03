@@ -34,13 +34,19 @@ class Slideshow_Widget extends WP_Widget
                     <?php
                         $image_id = get_post_meta($post_id, $image, true);
                         $text_id = get_post_meta($post_id, $slideshow_texts[$key], true);
+                        $image_url = wp_get_attachment_image_src( $image_id, 'full' )[0];
+                        
+                         if ($image_url == '') {
+                            continue;
+                        }
+
                        ?>
                    
-                    <div>
+                    <div class="slide">
+                        <img src="<?php echo $image_url;?>">
                         <h1><?php echo $text_id;?></h1>
-                        <?php echo wp_get_attachment_image($image_id, 'full', false, false); ?>
                     </div> 
-                    
+
                 <?php }?>
             </div>
         </div>
