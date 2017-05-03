@@ -9,15 +9,60 @@ class Slideshow_Widget extends WP_Widget
         $args = [
             'description' => 'Widget enabling slideshow on any website',
         ];
-        
-        parent::__construct($id, $title, $args);
 
+        require_once 'slideshow.php';
+        parent::__construct($id, $title, $args);
     }
     
     public function widget($args, $instance)
     {
-        $slideshow = $instance['slideshow'];
-        echo $slideshow;
+        $post_id = $instance['slideshow'];
+        //print_r(get_post_custom($post_id));
+
+        $slideshow = new Slideshow;
+        $slideshow_images = $slideshow->list_of_slides(Slideshow::SLIDESHOW_IMAGE_META);
+        $slideshow_texts = $slideshow->list_of_slides(Slideshow::SLIDESHOW_TEXT_META);
+        
+        $slideshow_height = get_post_meta($post_id, 'slideshow_settings_height', true);
+        $slideshow_width = get_post_meta($post_id, 'slideshow_settings_width', true);
+
+        ?>
+
+        <div class="container">
+            <div id="slides">
+                <?php foreach($slideshow_images as $key => $image) { ?>
+                    <?php
+                        $image_id = get_post_meta($post_id, $image, true);
+                        $text_id = get_post_meta($post_id, $slideshow_texts[$key], true);
+                       ?>
+                   
+                    <div>
+                        <h1><?php echo $text_id;?></h1>
+                        <?php echo wp_get_attachment_image($image_id, 'full', false, false); ?>
+                    </div> 
+                    
+                <?php }?>
+            </div>
+        </div>
+       <script>
+            $(function() {
+            $('#slides').slidesjs({
+                width: <?php echo $slideshow_width ?>,
+                height: <?php echo $slideshow_height?>,
+                play: {
+                    auto: true,
+                    interval: 5000,
+                    swap: true,
+                    pauseOnHover: false
+                },
+                pagination: {
+                    active: false,
+                },
+                navigation: false,
+            });
+            });
+        </script>
+        <?php 
     }
     
     public function form($instance)
@@ -26,7 +71,7 @@ class Slideshow_Widget extends WP_Widget
         
         $args = array(
 			'post_type' => 'slideshow'
-			);
+		);
 
 		$query = new WP_Query($args);
 		while($query->have_posts()): $query->the_post();

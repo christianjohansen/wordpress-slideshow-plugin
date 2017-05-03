@@ -12,6 +12,8 @@ class Index
         $this->url = plugins_url('slideshow-plugin');
 
         add_action('admin_enqueue_scripts', [$this, 'styles']);
+        add_action('wp_enqueue_scripts', [$this, 'styles']);
+        
         require_once 'slideshow-shortcode.php';
         new SlideshowShortcode();
 
@@ -46,10 +48,15 @@ class Index
     }
 
     private function set_scripts(){
-        // wp_enqueue_script(
-        //     'script-bootstrap-grid',
-        //     $this->url . '/assets/js/bootstrap.min.js'
-        // );
+        wp_enqueue_script(
+            'script-jquery',
+            $this->url . '/assets/js/jquery-3.2.1.min.js'
+        );
+
+         wp_enqueue_script(
+            'script-slidejs',
+            $this->url . '/assets/js/jquery.slides.min.js'
+        );
     }
 }
 

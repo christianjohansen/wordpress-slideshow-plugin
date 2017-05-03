@@ -20,7 +20,7 @@ class Slideshow{
         add_action( 'save_post', [$this, 'save_slideshow_text_meta_box']);
     }
 
-    function list_of_slides($slideshow_meta){
+    public function list_of_slides($slideshow_meta){
          $meta_keys = array();
          for ($i = 1; $i <= 5 ; $i++) {
              $meta_key = $slideshow_meta . $i;
